@@ -1,0 +1,4 @@
+<!--pages/index/index.wxml-->
+<text>{{hh}}</text>
+
+<button type="button" bindtap="test">点击请求接口</button >
