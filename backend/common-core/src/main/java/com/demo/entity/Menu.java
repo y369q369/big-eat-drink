@@ -1,6 +1,7 @@
 package com.demo.entity;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * @Author gs
@@ -8,6 +9,7 @@ import lombok.Data;
  * @Description 菜单
  */
 @Data
+@Accessors(chain = true)
 public class Menu {
 
     /**
@@ -38,6 +40,6 @@ public class Menu {
     /**
      * 排序
      */
-    private String order;
+    private int ordinal;
 
 }

@@ -14,3 +14,10 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   # 实体类所在包，简化xml中resultMap中实体类的全类名写法
   type-aliases-package: com.demo.entity
+
+
+logging:
+  level:
+    com:
+      demo:
+        mapper: debug

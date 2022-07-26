@@ -1,5 +1,6 @@
 package com.demo.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.demo.entity.Catalog;
 import org.apache.ibatis.annotations.Param;
 
@@ -10,21 +11,7 @@ import java.util.List;
  * @Date 2022-07-26 19:18
  * @Description 品类
  */
-public interface CatalogMapper {
-
-    /**
-     * 单条插入
-     * @param catalog 品类
-     * @return 成功数量
-     */
-    int insert(Catalog catalog);
-
-    /**
-     * 单条修改
-     * @param catalog 品类
-     * @return 成功数量
-     */
-    int update(Catalog catalog);
+public interface CatalogMapper extends BaseMapper<Catalog> {
 
     /**
      * 批量插入

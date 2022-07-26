@@ -1,5 +1,6 @@
 package com.demo.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.demo.entity.Menu;
 import org.apache.ibatis.annotations.Param;
 
@@ -10,21 +11,7 @@ import java.util.List;
  * @Date 2022-07-26 19:17
  * @Description 菜单
  */
-public interface MenuMapper {
-
-    /**
-     * 单条插入
-     * @param menu 菜单
-     * @return 成功数量
-     */
-    int insert(Menu menu);
-
-    /**
-     * 单条修改
-     * @param menu 菜单
-     * @return 成功数量
-     */
-    int update(Menu menu);
+public interface MenuMapper extends BaseMapper<Menu> {
 
     /**
      * 批量插入

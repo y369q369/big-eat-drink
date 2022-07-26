@@ -6,32 +6,16 @@
         <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="name_en" jdbcType="VARCHAR" property="nameEn"/>
-        <result column="order" jdbcType="VARCHAR" property="order"/>
+        <result column="ordinal" jdbcType="INTEGER" property="ordinal"/>
     </resultMap>
-
-    <!-- 插入单条 -->
-    <insert id="insert">
-        insert into catalog
-            (id, name, name_en, order)
-        values
-            (#{id}, #{name}, #{nameEn}, #{order})
-    </insert>
-
-    <!-- 单条修改 -->
-    <update id="update">
-        update catalog set name = #{menu.name},
-                        name_en = #{menu.nameEn},
-                        order = #{order}
-        where id = #{id}
-    </update>
 
     <!-- 批量插入 -->
     <insert id="batchInsert">
         insert into catalog
-            (id, name, name_en, order)
+            (id, name, name_en, ordinal)
         values
             <foreach collection="list" item="item" separator="," index="index">
-                (#{item.id}, #{item.name}, #{item.nameEn}, #{item.order})
+                (#{item.id}, #{item.name}, #{item.nameEn}, #{item.ordinal})
             </foreach>
     </insert>
 
@@ -53,10 +37,10 @@
                     </if>
                 </foreach>
             </trim>
-            <trim prefix="order = case" suffix="end,">
+            <trim prefix="ordinal = case" suffix="end,">
                 <foreach collection="list" item="item" index="index">
-                    <if test="item.order != null">
-                        when id = #{item.id} then #{item.order}
+                    <if test="item.ordinal != null">
+                        when id = #{item.id} then #{item.ordinal}
                     </if>
                 </foreach>
             </trim>

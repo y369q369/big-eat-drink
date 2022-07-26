@@ -38,9 +38,9 @@
 
         <!-- 引入依赖版本 -->
         <fastjson.version>1.2.44</fastjson.version>
-        <mysql.connector.java.version>8.0.15</mysql.connector.java.version>
+        <mysql.connector.java.version>8.0.29</mysql.connector.java.version>
         <mybatis.plus.version>3.5.2</mybatis.plus.version>
-        <lombok.version>1.18.22</lombok.version>
+        <lombok.version>1.18.24</lombok.version>
 
         <!-- 插件配置 -->
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
@@ -85,7 +85,7 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.5.2</version>
+            <version>${mybatis.plus.version}</version>
         </dependency>
 
         <!-- 单元测试 -->

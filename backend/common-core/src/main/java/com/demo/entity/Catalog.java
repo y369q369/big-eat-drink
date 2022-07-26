@@ -1,6 +1,7 @@
 package com.demo.entity;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * @Author gs
@@ -8,6 +9,7 @@ import lombok.Data;
  * @Description 品类
  */
 @Data
+@Accessors(chain = true)
 public class Catalog {
 
     /**
@@ -28,6 +30,6 @@ public class Catalog {
     /**
      * '排序'
      */
-    private String order;
+    private int ordinal;
 
 }
