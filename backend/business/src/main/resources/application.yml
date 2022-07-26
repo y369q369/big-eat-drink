@@ -1,0 +1,9 @@
+server:
+  port: 8282
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://116.205.137.178:3306/big-eat-drink?characterEncoding=utf-8&serverTimezone=GMT%2B8
+    username: root
+    password: 1qaz@WSX
