@@ -8,9 +8,11 @@ Page({
         curNav: 1,
         catalogList: [],
         menuMap: {},
-        choose: {
-
-        },
+        choose: {},
+        number: {
+            catalog: {},
+            total: 0
+        }
     },
 
 
@@ -82,7 +84,18 @@ Page({
                 })
             }
         }
-        console.log(this.data.choose)
+        var tempNumber = {
+            catalog: {},
+            total: 0
+        }
+        if(Object.keys(this.data.choose).length > 0) {
+            Object.keys(this.data.choose).forEach(key => {
+                tempNumber.total += this.data.choose[key]
+            })
+            this.setData({
+                number: tempNumber
+            })
+        }
     },
 
      /**
@@ -102,6 +115,23 @@ Page({
                 // ['choose.' + menu.id]: 1
             })
         }
+
+        var tempNumber = {
+            catalog: {},
+            total: 0
+        }
+        if(Object.keys(this.data.choose).length > 0) {
+            Object.keys(this.data.choose).forEach(key => {
+                tempNumber.total += this.data.choose[key]
+            })
+            this.setData({
+                number: tempNumber
+            })
+        }
+    },
+
+    showShop: function(e) {
+        console.log("show shop")
     },
 
     /**

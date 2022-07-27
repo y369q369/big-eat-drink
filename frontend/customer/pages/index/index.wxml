@@ -1,29 +1,36 @@
 <view class="container">
-<!-- 左侧 - 侧边栏 -->
-<view class="nav_left">
-    <view wx:for="{{catalogList}}" wx:key="id" 
-        class="nav_left_items {{curNav == item.id ? 'active' : ''}}" 
-        bindtap="switchRightTab" data-item="{{item}}">
-        {{item.name}}
+    <!-- 左侧 - 侧边栏 -->
+    <view class="nav_left">
+        <view wx:for="{{catalogList}}" wx:key="id" class="nav_left_items {{curNav == item.id ? 'active' : ''}}" bindtap="switchRightTab" data-item="{{item}}">
+            {{item.name}}
+        </view>
     </view>
-</view>
 
-<!-- 右侧 - 菜单 -->
-<view class="nav_right">
-    <view wx:for="{{menuMap[curNav]}}" wx:key="id" class="nav_right_items">
-        <view class="nav_right_items-img">
-            <image class="nav_right_items-img-detail" mode="{{item.mode}}" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></image>
-        </view>
-        <view class="nav_right_items-menu">
-            <view>{{item.name}}</view>
-            <view style="color: rgb(21, 179, 179);">￥{{item.price}}/份</view>
-        </view>
-        <view class="nav_right_items-number">
-            <view class="nav_right_items-number-update nav_right_items-number-plus" bindtap="plusNumber" data-item="{{item}}">+</view>
-            <view  wx:if="{{choose[item.id]}}" class="nav_right_items-number-value">{{choose[item.id]}}</view>
-            <view wx:if="{{choose[item.id]}}" class="nav_right_items-number-update .nav_right_items-number-min" bindtap="minNumber" data-item="{{item}}">-</view>
+    <!-- 右侧 - 菜单 -->
+    <view class="nav_right">
+        <view wx:for="{{menuMap[curNav]}}" wx:key="id" class="nav_right_items">
+            <view class="nav_right_items-img">
+                <image class="nav_right_items-img-detail" mode="{{item.mode}}" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></image>
+            </view>
+            <view class="nav_right_items-menu">
+                <view>{{item.name}}</view>
+                <view style="color: rgb(21, 179, 179);">￥{{item.price}}/份</view>
+            </view>
+            <view class="nav_right_items-number">
+                <view class="nav_right_items-number-update nav_right_items-number-plus" bindtap="plusNumber" data-item="{{item}}">+</view>
+                <view wx:if="{{choose[item.id]}}" class="nav_right_items-number-value">{{choose[item.id]}}</view>
+                <view wx:if="{{choose[item.id]}}" class="nav_right_items-number-update .nav_right_items-number-min" bindtap="minNumber" data-item="{{item}}">-</view>
+            </view>
         </view>
     </view>
-</view>
+
+    <view class="gouwuche" wx:if="{{number.total > 0}}" bindtap="showShop">
+        <view class="gouwuche-font">
+            <text class="iconfont icon-gouwuche" style="font-size: 30px; color: #fff;"></text>
+        </view>
+        <view class="gouwuche-tip">
+            {{number.total}}
+        </view>
+    </view>
 
 </view>
