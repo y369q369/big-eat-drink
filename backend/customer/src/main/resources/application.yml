@@ -1,5 +1,7 @@
 server:
   port: 8281
+  servlet:
+    context-path: /customer
 
 spring:
   datasource:
@@ -7,6 +9,10 @@ spring:
     url: jdbc:mysql://116.205.137.178:3306/big-eat-drink?characterEncoding=utf-8&serverTimezone=GMT%2B8
     username: root
     password: 1qaz@WSX
+  mvc:
+    pathmatch:
+      # Springfox使用的路径匹配是基于AntPathMatcher的，而Spring Boot 2.6.X + 使用的是PathPatternMatcher
+      matching-strategy: ant_path_matcher
 
 # mybatis配置
 mybatis:

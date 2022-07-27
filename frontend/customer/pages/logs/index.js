@@ -1,11 +1,11 @@
-// pages/index/index.js
+// pages/logs/index.js
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        hh: 123
+
     },
 
     test() {

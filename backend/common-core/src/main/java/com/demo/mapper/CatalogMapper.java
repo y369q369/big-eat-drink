@@ -18,13 +18,13 @@ public interface CatalogMapper extends BaseMapper<Catalog> {
      * @param catalogList 品类集合
      * @return 成功插入数量
      */
-    int batchInsert(@Param("catalogList") List<Catalog> catalogList);
+    int batchInsert(@Param("list") List<Catalog> catalogList);
 
     /**
      * 批量修改
      * @param catalogList 品类集合
      * @return 成功修改数量
      */
-    int batchUpdate(@Param("catalogList") List<Catalog> catalogList);
+    int batchUpdate(@Param("list") List<Catalog> catalogList);
 
 }
