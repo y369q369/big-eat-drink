@@ -30,7 +30,7 @@ class MenuDtoMapperTest {
                 .setId(CommonUtil.randomUUID())
                 .setName("杂项")
                 .setNameEn("ZA XIANG")
-                .setOrdinal(4);
+                .setOrdinal(9);
         int num = catalogMapper.insert(catalog);
         assertNotEquals(0, num);
 
@@ -135,6 +135,70 @@ class MenuDtoMapperTest {
                 .setNameEn("YU PI")
                 .setPrice("9")
                 .setOrdinal(catalog2.getOrdinal() * 100 + 5));
+        menuList.add(new Menu()
+                .setId(CommonUtil.randomUUID())
+                .setCatalogId(catalog2.getId())
+                .setName("鸡翅")
+                .setNameEn("JI CHI")
+                .setPrice("4")
+                .setOrdinal(catalog2.getOrdinal() * 100 + 6));
+        menuList.add(new Menu()
+                .setId(CommonUtil.randomUUID())
+                .setCatalogId(catalog2.getId())
+                .setName("鹌鹑")
+                .setNameEn("AN CHUN")
+                .setPrice("10")
+                .setOrdinal(catalog2.getOrdinal() * 100 + 7));
+
+        Catalog catalog3 = new Catalog()
+                .setId(CommonUtil.randomUUID())
+                .setName("饮品")
+                .setNameEn("YIN PIN")
+                .setOrdinal(3);
+        catalogList.add(catalog3);
+
+        menuList.add(new Menu()
+                .setId(CommonUtil.randomUUID())
+                .setCatalogId(catalog3.getId())
+                .setName("怡宝")
+                .setNameEn("YI BAO")
+                .setPrice("1")
+                .setOrdinal(catalog3.getOrdinal() * 100 + 1));
+        menuList.add(new Menu()
+                .setId(CommonUtil.randomUUID())
+                .setCatalogId(catalog3.getId())
+                .setName("可乐")
+                .setNameEn("KE LE")
+                .setPrice("2")
+                .setOrdinal(catalog3.getOrdinal() * 100 + 2));
+        menuList.add(new Menu()
+                .setId(CommonUtil.randomUUID())
+                .setCatalogId(catalog3.getId())
+                .setName("雪碧")
+                .setNameEn("XUE BI")
+                .setPrice("3")
+                .setOrdinal(catalog3.getOrdinal() * 100 + 3));
+        menuList.add(new Menu()
+                .setId(CommonUtil.randomUUID())
+                .setCatalogId(catalog3.getId())
+                .setName("加多宝")
+                .setNameEn("JIA DUO BAO")
+                .setPrice("4")
+                .setOrdinal(catalog3.getOrdinal() * 100 + 4));
+        menuList.add(new Menu()
+                .setId(CommonUtil.randomUUID())
+                .setCatalogId(catalog3.getId())
+                .setName("椰汁")
+                .setNameEn("YE ZHI")
+                .setPrice("10")
+                .setOrdinal(catalog3.getOrdinal() * 100 + 5));
+        menuList.add(new Menu()
+                .setId(CommonUtil.randomUUID())
+                .setCatalogId(catalog3.getId())
+                .setName("果汁")
+                .setNameEn("GUO ZHI")
+                .setPrice("15")
+                .setOrdinal(catalog3.getOrdinal() * 100 + 6));
 
         int num = catalogMapper.batchInsert(catalogList);
         assertNotEquals(0, num);

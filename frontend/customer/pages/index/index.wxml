@@ -8,20 +8,27 @@
 
     <!-- 右侧 - 菜单 -->
     <view class="nav_right">
-        <view wx:for="{{menuMap[curNav]}}" wx:key="id" class="nav_right_items">
-            <view class="nav_right_items-img">
-                <image class="nav_right_items-img-detail" mode="{{item.mode}}" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></image>
+        <scroll-view scroll-y="true" style="height: calc(100% - 10px)" scroll-into-view="{{ showCatalog }}" bindscroll="scroll" data-item="{{item}}">
+            <view wx:for="{{catalogList}}" wx:key="id" wx:for-item="catalog" style="padding-bottom: 20px;">
+                <view style="height: 30px; font-size: 14px;" id="{{'C' + catalog.id}}">
+                    ——  {{catalog.name}}  ——
+                </view>
+                <view wx:for="{{menuMap[catalog.id]}}" wx:key="id" class="nav_right_items">
+                    <view class="nav_right_items-img">
+                        <image class="nav_right_items-img-detail" mode="{{item.mode}}" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></image>
+                    </view>
+                    <view class="nav_right_items-menu">
+                        <view>{{item.name}}</view>
+                        <view style="color: rgb(21, 179, 179);">￥{{item.price}}/份</view>
+                    </view>
+                    <view class="nav_right_items-number">
+                        <view class="nav_right_items-number-update nav_right_items-number-plus" bindtap="plusNumber" data-item="{{item}}">+</view>
+                        <view wx:if="{{choose[item.id]}}" class="nav_right_items-number-value">{{choose[item.id]}}</view>
+                        <view wx:if="{{choose[item.id]}}" class="nav_right_items-number-update .nav_right_items-number-min" bindtap="minNumber" data-item="{{item}}">-</view>
+                    </view>
+                </view>
             </view>
-            <view class="nav_right_items-menu">
-                <view>{{item.name}}</view>
-                <view style="color: rgb(21, 179, 179);">￥{{item.price}}/份</view>
-            </view>
-            <view class="nav_right_items-number">
-                <view class="nav_right_items-number-update nav_right_items-number-plus" bindtap="plusNumber" data-item="{{item}}">+</view>
-                <view wx:if="{{choose[item.id]}}" class="nav_right_items-number-value">{{choose[item.id]}}</view>
-                <view wx:if="{{choose[item.id]}}" class="nav_right_items-number-update .nav_right_items-number-min" bindtap="minNumber" data-item="{{item}}">-</view>
-            </view>
-        </view>
+        </scroll-view>
     </view>
 
     <view class="gouwuche" wx:if="{{number.total > 0}}" bindtap="showShop">

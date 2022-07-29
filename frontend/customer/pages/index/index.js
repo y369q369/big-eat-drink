@@ -9,6 +9,10 @@ Page({
         catalogList: [],
         menuMap: {},
         choose: {},
+        height: {
+            catalog: {}
+        },
+        showCatalog: '',
         number: {
             catalog: {},
             total: 0
@@ -35,10 +39,20 @@ Page({
                 // 一般在这一打印下看看是否拿到数据
                 // console.log(res)
                 if (res.data.catalogList.length > 0 && Object.keys(res.data.menuMap).length > 0 ) {
+                    var catalogHeight = {}
+                    var tempHeight = 0
+                    res.data.catalogList.forEach(catalog => {
+                        tempHeight += res.data.menuMap[catalog.id].length * 52 + 40
+                        // catalogHeight[catalog.id] = tempHeight
+                        catalogHeight[tempHeight] = 'C' + catalog.id
+                        console.log(catalog.name  + ': ' + tempHeight)
+                    })
+
                     that.setData({
                         curNav: res.data.catalogList[0].id,
                         catalogList: res.data.catalogList,
-                        menuMap: res.data.menuMap
+                        menuMap: res.data.menuMap,
+                        ['height.catalog']: catalogHeight
                     })
                     console.log(that.data);
                 }
@@ -61,8 +75,23 @@ Page({
     switchRightTab: function(e) {
         var catalog = e.target.dataset.item
         this.setData({
-            curNav: catalog.id
+            curNav: catalog.id,
+            showCatalog: 'C' + catalog.id
         })
+    },
+
+    /**
+     * 滚动事件
+     */
+    scroll: function(e) {
+        console.log(e.detail.scrollTop)
+        // Object.keys(this.data.height.catalog).forEach(key => {
+        //     e.detail.scrollTop 
+        // })
+
+        // this.setData({
+        //     showCatalog: 'C' + catalog.id
+        // })
     },
 
     /**

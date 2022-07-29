@@ -2,8 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.demo.mapper.MenuDtoMapper">
 
+    <!-- 获取所有种类和菜单 -->
     <select id="getMenuList" resultType="com.demo.dto.MenuDto">
-
+        select
+            m.id,
+            m.catalog_id as catalogId,
+            m.name,
+            m.name_en nameEn,
+            m.price,
+            m.ordinal,
+            c.name as catalogName
+        from
+            menu m,
+            catalog c
+        where
+            m.catalog_id = c.id
+        order by
+            m.ordinal
     </select>
 
 
