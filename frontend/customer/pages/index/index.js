@@ -38,21 +38,22 @@ Page({
             success: (res) => {
                 // 一般在这一打印下看看是否拿到数据
                 // console.log(res)
-                if (res.data.catalogList.length > 0 && Object.keys(res.data.menuMap).length > 0 ) {
+                if (res.data.catalogList.length > 0 && Object.keys(res.data.menuMap).length > 0) {
                     var catalogHeight = {}
                     var tempHeight = 0
                     res.data.catalogList.forEach(catalog => {
                         tempHeight += res.data.menuMap[catalog.id].length * 52 + 40
                         // catalogHeight[catalog.id] = tempHeight
                         catalogHeight[tempHeight] = 'C' + catalog.id
-                        console.log(catalog.name  + ': ' + tempHeight)
+                        console.log(catalog.name + ': ' + tempHeight)
                     })
 
                     that.setData({
                         curNav: res.data.catalogList[0].id,
                         catalogList: res.data.catalogList,
                         menuMap: res.data.menuMap,
-                        ['height.catalog']: catalogHeight
+                        ['height.catalog']: catalogHeight,
+                        showCatalog: 'C' + res.data.catalogList[0].id
                     })
                     console.log(that.data);
                 }
@@ -72,7 +73,7 @@ Page({
     /**
      * 切换种类
      */
-    switchRightTab: function(e) {
+    switchRightTab: function (e) {
         var catalog = e.target.dataset.item
         this.setData({
             curNav: catalog.id,
@@ -83,21 +84,30 @@ Page({
     /**
      * 滚动事件
      */
-    scroll: function(e) {
-        console.log(e.detail.scrollTop)
-        // Object.keys(this.data.height.catalog).forEach(key => {
-        //     e.detail.scrollTop 
-        // })
-
-        // this.setData({
-        //     showCatalog: 'C' + catalog.id
-        // })
+    scroll: function (e) {
+        var keys = Object.keys(this.data.height.catalog)
+        var tempCatalog = this.data.height.catalog[keys[0]]
+        for (var i = 0; i < keys.length; i++) {
+            if (e.detail.scrollTop >= keys[i]) {
+                if (i < keys.length - 1 ) {
+                    tempCatalog = this.data.height.catalog[keys[i + 1]];
+                }
+            } else {
+                if (tempCatalog != this.data.showCatalog) {
+                    this.setData({
+                        curNav: tempCatalog.substring(1),
+                        showCatalog: tempCatalog
+                    })
+                }
+                break
+            }
+        }
     },
 
     /**
      * 减少数量
      */
-    minNumber: function(e) {
+    minNumber: function (e) {
         var menu = e.target.dataset.item
         var currentNum = this.data.choose[menu.id];
         if (currentNum) {
@@ -109,7 +119,7 @@ Page({
                 })
             } else {
                 this.setData({
-                    ['choose.' + menu.id]: -- currentNum
+                    ['choose.' + menu.id]: --currentNum
                 })
             }
         }
@@ -117,26 +127,26 @@ Page({
             catalog: {},
             total: 0
         }
-        if(Object.keys(this.data.choose).length > 0) {
+        if (Object.keys(this.data.choose).length > 0) {
             Object.keys(this.data.choose).forEach(key => {
                 tempNumber.total += this.data.choose[key]
             })
-            this.setData({
-                number: tempNumber
-            })
         }
+        this.setData({
+            number: tempNumber
+        })
     },
 
-     /**
+    /**
      * 增加数量
      */
-    plusNumber: function(e) {
+    plusNumber: function (e) {
         var menu = e.target.dataset.item
         var currentNum = this.data.choose[menu.id];
         var key = "choose." + menu.id
         if (currentNum) {
             this.setData({
-                [key]: ++ currentNum
+                [key]: ++currentNum
             })
         } else {
             this.setData({
@@ -149,7 +159,7 @@ Page({
             catalog: {},
             total: 0
         }
-        if(Object.keys(this.data.choose).length > 0) {
+        if (Object.keys(this.data.choose).length > 0) {
             Object.keys(this.data.choose).forEach(key => {
                 tempNumber.total += this.data.choose[key]
             })
@@ -159,7 +169,7 @@ Page({
         }
     },
 
-    showShop: function(e) {
+    showShop: function (e) {
         console.log("show shop")
     },
 
