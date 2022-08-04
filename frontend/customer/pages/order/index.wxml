@@ -1,0 +1,29 @@
+<!--pages/order/index.wxml-->
+<view>
+    <scroll-view scroll-y="true" class="menu_scroll">
+        <view wx:for="{{orderList}}" wx:key="index" class="menu_items">
+            <view class="menu_item_image">
+                <image class="menu_item_image_detail" mode="{{item.mode}}" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></image>
+            </view>
+            <view class="menu_item_info">
+                <view>{{item.name}}</view>
+                <view style="color: rgb(21, 179, 179);">￥{{item.price}}/份</view>
+            </view>
+            <view class="menu_item_number">
+                <view>{{item.number}}</view>
+            </view>
+        </view>
+    </scroll-view>
+
+    <view style="height: 70px;">
+        <view style="text-align: right; padding-right: 20px; font-size: 14px;">
+            总价： {{totalPrice}} 元
+        </view>
+        <view class="order_button">
+            <button bindtap="back" style="font-size: 14px; ">加菜</button>
+        </view>
+        <view class="order_button">
+            <button bindtap="saveOrder" style="font-size: 14px;">结帐</button>
+        </view>
+    </view>
+</view>

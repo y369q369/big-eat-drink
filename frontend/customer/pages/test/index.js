@@ -1,32 +1,18 @@
-// pages/index/index.js
+// pages/test/index.js
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        curNav: 1
-    },
 
-    /* 把点击到的某一项 设为当前curNav */
-    switchRightTab: function (e) {
-        let id = e.target.dataset.id;
-        console.log(id);
-        this.setData({
-            curNav: id
-        })
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
-        // this.setData({
-        //     nbTitle: '新标题',
-        //     nbLoading: true,
-        //     nbFrontColor: '#ffffff',
-        //     nbBackgroundColor: '#000000',
-        //   })
+
     },
 
     /**

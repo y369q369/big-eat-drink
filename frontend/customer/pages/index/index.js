@@ -1,6 +1,5 @@
 // pages/logs/index.js
 Page({
-
     /**
      * 页面的初始数据
      */
@@ -8,6 +7,7 @@ Page({
         curNav: 1,
         catalogList: [],
         menuMap: {},
+        menuDetail: {},
         choose: {},
         height: {
             catalog: {}
@@ -16,16 +16,15 @@ Page({
         number: {
             catalog: {},
             total: 0
-        }
+        },
+        showModalStatus: false,
+        orderId: '',
     },
-
-
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
-        // 为确保this指向不发生改变，可以固定下this指向,使用this的时候用that代替即可
         var that = this
         wx.request({
             // 注意，如果小程序开启校验合法域名时必须使用https协议
@@ -41,21 +40,26 @@ Page({
                 if (res.data.catalogList.length > 0 && Object.keys(res.data.menuMap).length > 0) {
                     var catalogHeight = {}
                     var tempHeight = 0
+                    var tempNumber = {}
+                    var tempMenuDetail = {}
+
                     res.data.catalogList.forEach(catalog => {
                         tempHeight += res.data.menuMap[catalog.id].length * 52 + 40
-                        // catalogHeight[catalog.id] = tempHeight
                         catalogHeight[tempHeight] = 'C' + catalog.id
-                        console.log(catalog.name + ': ' + tempHeight)
+                        tempNumber[catalog.id] = 0
+                        res.data.menuMap[catalog.id].forEach(menu => {
+                            tempMenuDetail[menu.id] = menu;
+                        })
                     })
 
                     that.setData({
                         curNav: res.data.catalogList[0].id,
                         catalogList: res.data.catalogList,
                         menuMap: res.data.menuMap,
+                        menuDetail: tempMenuDetail,
                         ['height.catalog']: catalogHeight,
-                        showCatalog: 'C' + res.data.catalogList[0].id
+                        'number.catalog': tempNumber
                     })
-                    console.log(that.data);
                 }
             },
             // 请求失败时的一些处理
@@ -89,7 +93,7 @@ Page({
         var tempCatalog = this.data.height.catalog[keys[0]]
         for (var i = 0; i < keys.length; i++) {
             if (e.detail.scrollTop >= keys[i]) {
-                if (i < keys.length - 1 ) {
+                if (i < keys.length - 1) {
                     tempCatalog = this.data.height.catalog[keys[i + 1]];
                 }
             } else {
@@ -112,10 +116,8 @@ Page({
         var currentNum = this.data.choose[menu.id];
         if (currentNum) {
             if (currentNum == 1) {
-                var tempChoose = this.data.choose
-                delete tempChoose[menu.id]
                 this.setData({
-                    choose: tempChoose
+                    ['choose.' + menu.id]: 0
                 })
             } else {
                 this.setData({
@@ -123,15 +125,10 @@ Page({
                 })
             }
         }
-        var tempNumber = {
-            catalog: {},
-            total: 0
-        }
-        if (Object.keys(this.data.choose).length > 0) {
-            Object.keys(this.data.choose).forEach(key => {
-                tempNumber.total += this.data.choose[key]
-            })
-        }
+
+        var tempNumber = this.data.number
+        tempNumber.catalog[menu.catalogId] -= 1
+        tempNumber.total -= 1
         this.setData({
             number: tempNumber
         })
@@ -155,23 +152,120 @@ Page({
             })
         }
 
-        var tempNumber = {
-            catalog: {},
-            total: 0
-        }
-        if (Object.keys(this.data.choose).length > 0) {
-            Object.keys(this.data.choose).forEach(key => {
-                tempNumber.total += this.data.choose[key]
-            })
-            this.setData({
-                number: tempNumber
-            })
-        }
+        var tempNumber = this.data.number
+        tempNumber.catalog[menu.catalogId] += 1
+        tempNumber.total += 1
+        this.setData({
+            number: tempNumber
+        })
     },
 
-    showShop: function (e) {
-        console.log("show shop")
+    /** 
+     * 显示对话框
+     */
+    showModal: function () {
+        // 显示遮罩层
+        var animation = wx.createAnimation({
+            duration: 200,
+            timingFunction: "linear",
+            delay: 0
+        })
+        this.animation = animation
+        animation.translateY(500).step()
+        this.setData({
+            animationData: animation.export(),
+            showModalStatus: true
+        })
+        setTimeout(function () {
+            animation.translateY(0).step()
+            this.setData({
+                animationData: animation.export()
+            })
+        }.bind(this), 200)
     },
+
+    /** 
+     * 隐藏对话框
+     */
+    hideModal: function () {
+        // 隐藏遮罩层
+        var animation = wx.createAnimation({
+            duration: 200,
+            timingFunction: "linear",
+            delay: 0
+        })
+        this.animation = animation
+        animation.translateY(300).step()
+        this.setData({
+            animationData: animation.export(),
+        })
+        setTimeout(function () {
+            animation.translateY(0).step()
+            this.setData({
+                animationData: animation.export(),
+                showModalStatus: false
+            })
+        }.bind(this), 200)
+    },
+
+
+
+    /**
+     * 新增订单
+     */
+    saveOrder: function (e) {
+        var that = this
+        wx.request({
+            url: 'http://localhost:8281/customer/order/order',
+            method: 'POST',
+            data: {
+                orderId: this.data.orderId,
+                userId: 'gs',
+                detailMap: this.data.choose
+            },
+            success: (res) => {
+                if (res.data.code == 200) {
+                    var tempOrderId = res.data.data.id
+                    that.setData({
+                        curNav: 1,
+                        choose: {},
+                        showCatalog: '',
+                        number: {
+                            catalog: {},
+                            total: 0
+                        },
+                        showModalStatus: false,
+                        orderId: tempOrderId
+                    })
+                    wx.navigateTo({
+                        url: '../order/index',
+                        success: function (res) {
+                            // 通过 eventChannel 向被打开页面传送数据
+                            res.eventChannel.emit('order', {
+                                id: tempOrderId
+                            })
+                        }
+                    })
+                } else {
+                    wx.showToast({
+                        icon: "none",
+                        mask: true,
+                        title: "接口调用失败，请稍后再试。",
+                    });
+                }
+            },
+            // 请求失败时的一些处理
+            fail: function (res) {
+                console.error(res)
+                wx.showToast({
+                    icon: "none",
+                    mask: true,
+                    title: "接口调用失败，请稍后再试。",
+                });
+            }
+        })
+    },
+
 
     /**
      * 生命周期函数--监听页面初次渲染完成

@@ -1,7 +1,8 @@
 {
     "pages": [
         "pages/index/index",
-        "pages/logs/index"
+        "pages/test/index",
+        "pages/order/index"
     ],
     "window": {
         "navigationBarTitleText": "吃好喝好"
@@ -11,15 +12,14 @@
             {
                 "pagePath": "pages/index/index",
                 "text": "首页"
-            },
-            {
-                "pagePath": "pages/logs/index",
-                "text": "日志"
+            },{
+                "pagePath": "pages/test/index",
+                "text": "测试"
             }
         ]
     },
     "networkTimeout": {
-        "request": 10000,
+        "request": 100000,
         "downloadFile": 10000
     },
     "debug": true,

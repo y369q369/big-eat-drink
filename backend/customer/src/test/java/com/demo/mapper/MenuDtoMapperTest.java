@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +40,7 @@ class MenuDtoMapperTest {
                 .setCatalogId(catalog.getId())
                 .setName("餐具")
                 .setNameEn("CAN JU")
-                .setPrice("1")
+                .setPrice(new BigDecimal("1"))
                 .setOrdinal(catalog.getOrdinal() * 100 + 1);
         int num2 = menuMapper.insert(menu);
         assertNotEquals(0, num2);
@@ -62,35 +63,35 @@ class MenuDtoMapperTest {
                 .setCatalogId(catalog.getId())
                 .setName("宫保鸡丁")
                 .setNameEn("GONG BAO JI DING")
-                .setPrice("12")
+                .setPrice(new BigDecimal("12"))
                 .setOrdinal(catalog.getOrdinal() * 100 + 1));
         menuList.add(new Menu()
                 .setId(CommonUtil.randomUUID())
                 .setCatalogId(catalog.getId())
                 .setName("酸辣土豆丝")
                 .setNameEn("SUAN LA TU DOU SI")
-                .setPrice("8")
+                .setPrice(new BigDecimal("8"))
                 .setOrdinal(catalog.getOrdinal() * 100 + 2));
         menuList.add(new Menu()
                 .setId(CommonUtil.randomUUID())
                 .setCatalogId(catalog.getId())
                 .setName("地三鲜")
                 .setNameEn("DI SAN XIAN")
-                .setPrice("11")
+                .setPrice(new BigDecimal("11"))
                 .setOrdinal(catalog.getOrdinal() * 100 + 3));
         menuList.add(new Menu()
                 .setId(CommonUtil.randomUUID())
                 .setCatalogId(catalog.getId())
                 .setName("糖醋里脊")
                 .setNameEn("TANG CU LI JI")
-                .setPrice("15")
+                .setPrice(new BigDecimal("15"))
                 .setOrdinal(catalog.getOrdinal() * 100 + 4));
         menuList.add(new Menu()
                 .setId(CommonUtil.randomUUID())
                 .setCatalogId(catalog.getId())
                 .setName("蚂蚁上树")
                 .setNameEn("MA YI SHANG SHU")
-                .setPrice("9")
+                .setPrice(new BigDecimal("9"))
                 .setOrdinal(catalog.getOrdinal() * 100 + 5));
 
         Catalog catalog2 = new Catalog()
@@ -105,49 +106,49 @@ class MenuDtoMapperTest {
                 .setCatalogId(catalog2.getId())
                 .setName("茄子")
                 .setNameEn("QIE ZI")
-                .setPrice("4")
+                .setPrice(new BigDecimal("4"))
                 .setOrdinal(catalog2.getOrdinal() * 100 + 1));
         menuList.add(new Menu()
                 .setId(CommonUtil.randomUUID())
                 .setCatalogId(catalog2.getId())
                 .setName("羊肉串")
                 .setNameEn("YANG ROU CHUAN")
-                .setPrice("3")
+                .setPrice(new BigDecimal("3"))
                 .setOrdinal(catalog2.getOrdinal() * 100 + 2));
         menuList.add(new Menu()
                 .setId(CommonUtil.randomUUID())
                 .setCatalogId(catalog2.getId())
                 .setName("五花肉")
                 .setNameEn("WU HUA ROU")
-                .setPrice("3")
+                .setPrice(new BigDecimal("3"))
                 .setOrdinal(catalog2.getOrdinal() * 100 + 3));
         menuList.add(new Menu()
                 .setId(CommonUtil.randomUUID())
                 .setCatalogId(catalog2.getId())
                 .setName("秋刀鱼")
                 .setNameEn("QIU DAO YU")
-                .setPrice("15")
+                .setPrice(new BigDecimal("15"))
                 .setOrdinal(catalog2.getOrdinal() * 100 + 4));
         menuList.add(new Menu()
                 .setId(CommonUtil.randomUUID())
                 .setCatalogId(catalog2.getId())
                 .setName("鱼皮")
                 .setNameEn("YU PI")
-                .setPrice("9")
+                .setPrice(new BigDecimal("9"))
                 .setOrdinal(catalog2.getOrdinal() * 100 + 5));
         menuList.add(new Menu()
                 .setId(CommonUtil.randomUUID())
                 .setCatalogId(catalog2.getId())
                 .setName("鸡翅")
                 .setNameEn("JI CHI")
-                .setPrice("4")
+                .setPrice(new BigDecimal("4"))
                 .setOrdinal(catalog2.getOrdinal() * 100 + 6));
         menuList.add(new Menu()
                 .setId(CommonUtil.randomUUID())
                 .setCatalogId(catalog2.getId())
                 .setName("鹌鹑")
                 .setNameEn("AN CHUN")
-                .setPrice("10")
+                .setPrice(new BigDecimal("10"))
                 .setOrdinal(catalog2.getOrdinal() * 100 + 7));
 
         Catalog catalog3 = new Catalog()
@@ -162,42 +163,42 @@ class MenuDtoMapperTest {
                 .setCatalogId(catalog3.getId())
                 .setName("怡宝")
                 .setNameEn("YI BAO")
-                .setPrice("1")
+                .setPrice(new BigDecimal("1"))
                 .setOrdinal(catalog3.getOrdinal() * 100 + 1));
         menuList.add(new Menu()
                 .setId(CommonUtil.randomUUID())
                 .setCatalogId(catalog3.getId())
                 .setName("可乐")
                 .setNameEn("KE LE")
-                .setPrice("2")
+                .setPrice(new BigDecimal("2"))
                 .setOrdinal(catalog3.getOrdinal() * 100 + 2));
         menuList.add(new Menu()
                 .setId(CommonUtil.randomUUID())
                 .setCatalogId(catalog3.getId())
                 .setName("雪碧")
                 .setNameEn("XUE BI")
-                .setPrice("3")
+                .setPrice(new BigDecimal("3"))
                 .setOrdinal(catalog3.getOrdinal() * 100 + 3));
         menuList.add(new Menu()
                 .setId(CommonUtil.randomUUID())
                 .setCatalogId(catalog3.getId())
                 .setName("加多宝")
                 .setNameEn("JIA DUO BAO")
-                .setPrice("4")
+                .setPrice(new BigDecimal("4"))
                 .setOrdinal(catalog3.getOrdinal() * 100 + 4));
         menuList.add(new Menu()
                 .setId(CommonUtil.randomUUID())
                 .setCatalogId(catalog3.getId())
                 .setName("椰汁")
                 .setNameEn("YE ZHI")
-                .setPrice("10")
+                .setPrice(new BigDecimal("10"))
                 .setOrdinal(catalog3.getOrdinal() * 100 + 5));
         menuList.add(new Menu()
                 .setId(CommonUtil.randomUUID())
                 .setCatalogId(catalog3.getId())
                 .setName("果汁")
                 .setNameEn("GUO ZHI")
-                .setPrice("15")
+                .setPrice(new BigDecimal("15"))
                 .setOrdinal(catalog3.getOrdinal() * 100 + 6));
 
         int num = catalogMapper.batchInsert(catalogList);

@@ -1,37 +1,43 @@
 <view class="container">
     <!-- 左侧 - 侧边栏 -->
     <view class="nav_left">
-        <view wx:for="{{catalogList}}" wx:key="id" class="nav_left_items {{curNav == item.id ? 'active' : ''}}" bindtap="switchRightTab" data-item="{{item}}">
-            {{item.name}}
+        <view wx:for="{{catalogList}}" wx:key="id" class="nav_left_items {{curNav == item.id ? 'active' : ''}}">
+            <view class="menu-detail" bindtap="switchRightTab" data-item="{{item}}">
+                {{item.name}}
+            </view>
+            <view wx:if="{{number.catalog[item.id] > 0}}" class="menu-tip">
+                {{number.catalog[item.id]}}
+            </view>
         </view>
     </view>
 
     <!-- 右侧 - 菜单 -->
     <view class="nav_right">
-        <scroll-view scroll-y="true" style="height: calc(100% - 10px)" scroll-into-view="{{ showCatalog }}" bindscroll="scroll" data-item="{{item}}">
+        <scroll-view scroll-y="true" style="height: calc(100% - 15px)" scroll-into-view="{{ showCatalog }}" bindscroll="scroll" data-item="{{item}}">
             <view wx:for="{{catalogList}}" wx:key="id" wx:for-item="catalog" style="padding-bottom: 20px;">
                 <view style="height: 30px; font-size: 14px;" id="{{'C' + catalog.id}}">
-                    ——  {{catalog.name}}  ——
+                    —— {{catalog.name}} ——
                 </view>
                 <view wx:for="{{menuMap[catalog.id]}}" wx:key="id" class="nav_right_items">
                     <view class="nav_right_items-img">
-                        <image class="nav_right_items-img-detail" mode="{{item.mode}}" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></image>
+                        <image class="menu_item_image_detail" mode="{{item.mode}}" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></image>
                     </view>
-                    <view class="nav_right_items-menu">
+                    <view class="menu_item_info">
                         <view>{{item.name}}</view>
                         <view style="color: rgb(21, 179, 179);">￥{{item.price}}/份</view>
                     </view>
                     <view class="nav_right_items-number">
-                        <view class="nav_right_items-number-update nav_right_items-number-plus" bindtap="plusNumber" data-item="{{item}}">+</view>
+                        <view class="button-number-update button-number-plus" bindtap="plusNumber" data-item="{{item}}">+</view>
                         <view wx:if="{{choose[item.id]}}" class="nav_right_items-number-value">{{choose[item.id]}}</view>
-                        <view wx:if="{{choose[item.id]}}" class="nav_right_items-number-update .nav_right_items-number-min" bindtap="minNumber" data-item="{{item}}">-</view>
+                        <view wx:if="{{choose[item.id]}}" class="button-number-update button-number-min" bindtap="minNumber" data-item="{{item}}">-</view>
                     </view>
                 </view>
             </view>
         </scroll-view>
     </view>
 
-    <view class="gouwuche" wx:if="{{number.total > 0}}" bindtap="showShop">
+    <!-- 购物车按钮 -->
+    <view class="gouwuche" wx:if="{{number.total > 0}}" bindtap="showModal">
         <view class="gouwuche-font">
             <text class="iconfont icon-gouwuche" style="font-size: 30px; color: #fff;"></text>
         </view>
@@ -40,4 +46,31 @@
         </view>
     </view>
 
+    <!-- 提交订单对话框 -->
+    <view animation="{{animationData}}" class="order_dialog" wx:if="{{showModalStatus}}">
+        <scroll-view scroll-y="true" class="order_dialog_scorll">
+            <view wx:for="{{choose}}" wx:key="index" wx:for-item="value" class="order_dialog_menu_items">
+                <view class="menu_item_image">
+                    <image class="menu_item_image_detail" mode="{{item.mode}}" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></image>
+                </view>
+                <view class="menu_item_info">
+                    <view>{{menuDetail[index].name}}</view>
+                    <view style="color: rgb(21, 179, 179);">￥{{menuDetail[index].price}}/份</view>
+                </view>
+                <view class="menu_item_number">
+                    <view class="button-number-update button-number-plus" bindtap="plusNumber" data-item="{{menuDetail[index]}}">+</view>
+                    <view class="nav_right_items-number-value">{{value}}</view>
+                    <view class="button-number-update button-number-min" bindtap="minNumber" data-item="{{menuDetail[index]}}">-</view>
+                </view>
+            </view>
+        </scroll-view>
+        <view style="height: 70px;">
+            <view class="order_button">
+                <button bindtap="hideModal" style="font-size: 14px; ">继续点餐</button>
+            </view>
+            <view class="order_button">
+                <button bindtap="saveOrder" style="font-size: 14px;">确认订单</button>
+            </view>
+        </view>
+    </view>
 </view>

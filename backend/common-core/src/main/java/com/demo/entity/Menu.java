@@ -3,6 +3,8 @@ package com.demo.entity;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.math.BigDecimal;
+
 /**
  * @Author gs
  * @Date 2022-07-26 19:13
@@ -35,7 +37,7 @@ public class Menu {
     /**
      * 价格（元）
      */
-    private String price;
+    private BigDecimal price;
 
     /**
      * 排序

@@ -1,0 +1,5 @@
+/* pages/order/index.wxss */
+.menu_scroll {
+    height: calc(100% - 70px); 
+    padding-top: 10px;
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.mapper.OrderDetailMapper">
+
+    <resultMap id="BaseResultMap" type="com.demo.mapper.OrderDetailMapper">
+        <result column="detail_id" jdbcType="VARCHAR" property="detailId" />
+        <result column="menu_id" jdbcType="VARCHAR" property="menuId" />
+        <result column="number" jdbcType="INTEGER" property="number" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+
+    <!-- 批量插入 -->
+    <insert id="batchInsert">
+        insert into order_detail
+            (detail_id, menu_id, number)
+        values
+            <foreach collection="list" item="item" separator="," index="index">
+                (#{item.detailId}, #{item.menuId}, #{item.number})
+            </foreach>
+    </insert>
+
+
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.mapper.OrderDataMapper">
+
+    <!-- 获取订单详情 -->
+    <select id="getOrderInfo" resultType="com.demo.dto.OrderDto">
+        SELECT
+            t.id AS orderId,
+            d.detail_id AS detailId,
+            d.number,
+            d.menu_id AS menuId,
+            m.catalog_id AS catalogId,
+            m.NAME,
+            m.name_en AS nameEn,
+            m.price,
+            m.ordinal
+        FROM
+            order_total t,
+            order_detail d,
+            menu m
+        WHERE
+            t.detail_id = d.detail_id
+          AND d.menu_id = m.id
+          AND t.id = #{orderId}
+        ORDER BY
+            m.ordinal
+    </select>
+
+</mapper>

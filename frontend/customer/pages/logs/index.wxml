@@ -1,4 +1,0 @@
-<!--pages/logs/index.wxml-->
-<text>pages/logs/index.wxml</text>
-
-<button type="button" bindtap="test">点击请求接口</button >

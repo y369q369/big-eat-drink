@@ -1,31 +1,44 @@
-// pages/logs/index.js
+// pages/order/index.js
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-
+        orderId: '',
+        orderList: [],
+        totalPrice: 0
     },
 
-    test() {
-        // 为确保this指向不发生改变，可以固定下this指向
-        //使用this的时候用that代替即可
+    /**
+     * 生命周期函数--监听页面加载
+     */
+    onLoad(options) {
+        const eventChannel = this.getOpenerEventChannel()
+        var that = this
+        // 监听 order 事件，获取上一页面通过 eventChannel 传送到当前页面的数据
+        eventChannel.on('order', function (data) {
+            that.setData({
+                orderId: data.id
+            })
+        })
+        this.initOrder()
+    },
+
+    /**
+     * 初始化订单
+     */
+    initOrder: function (e) {
         var that = this
         wx.request({
-            // 注意，如果小程序开启校验合法域名时必须使用https协议
-            //在测试的情况下可以不开启域名校验
-            url: 'http://localhost:8082/test',
-            // 请求的方法
-            method: 'GET', // 或 ‘POST’
-            // 设置请求头，不能设置 Referer
-            // 请求成功时的处理
-            success: function (res) {
-                // 一般在这一打印下看看是否拿到数据
-                console.log(res)
-                console.log(res.data)
+            url: 'http://localhost:8281/customer/order/orderInfo?orderId=' + that.data.orderId,
+            method: 'GET', 
+            success: (res) => {
+                that.setData({
+                    orderList: res.data.data.orderList,
+                    totalPrice: res.data.data.totalPrice
+                })
             },
-            // 请求失败时的一些处理
             fail: function (res) {
                 console.error(res)
                 wx.showToast({
@@ -37,12 +50,10 @@ Page({
         })
     },
 
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad(options) {
-
+    back: function() {
+        wx.navigateBack({})
     },
+
 
     /**
      * 生命周期函数--监听页面初次渲染完成
