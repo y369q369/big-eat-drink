@@ -15,6 +15,9 @@ public class OrderDto {
     // 订单总id
     private String orderId;
 
+    // 订单状态 1: 创建  2：待付款  3：已付款  4：已退款  5：完成
+    private Integer status;
+
     // 订单分id
     private String detailId;
 

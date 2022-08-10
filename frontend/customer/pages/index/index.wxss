@@ -76,6 +76,7 @@ page {
     float: left; 
     width: 25%; 
     height: 40px;
+    padding: 0 5px;
 }
 
 

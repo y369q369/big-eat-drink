@@ -1,5 +1,6 @@
 package com.demo.controller;
 
+import com.demo.entity.OrderTotal;
 import com.demo.request.SaveOrderRequest;
 import com.demo.response.ResponseResult;
 import com.demo.service.OrderService;
@@ -24,12 +25,6 @@ public class OrderController {
     @Resource
     private OrderService orderService;
 
-    @ApiOperation(value = "新增订单")
-    @PostMapping("order")
-    public ResponseResult order(@RequestBody SaveOrderRequest saveOrderRequest) {
-        return orderService.saveOrder(saveOrderRequest);
-    }
-
     @ApiOperation(value = "查询订单详情")
     @GetMapping("orderInfo")
     @ApiImplicitParams({
@@ -37,6 +32,18 @@ public class OrderController {
     })
     public ResponseResult orderInfo(@RequestParam("orderId") String orderId) {
         return orderService.getOrderInfo(orderId);
+    }
+
+    @ApiOperation(value = "新增订单")
+    @PostMapping("order")
+    public ResponseResult saveOrder(@RequestBody SaveOrderRequest saveOrderRequest) {
+        return orderService.saveOrder(saveOrderRequest);
+    }
+
+    @ApiOperation(value = "更新订单")
+    @PutMapping("order")
+    public ResponseResult updateOrder(@RequestBody OrderTotal orderTotal) {
+        return orderService.updateOrderStatus(orderTotal);
     }
 
 }

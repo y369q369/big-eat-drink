@@ -9,5 +9,9 @@ import com.demo.entity.OrderTotal;
  */
 public interface OrderTotalMapper extends BaseMapper<OrderTotal> {
 
+    /**
+     * 修改订单状态
+     */
+    Integer updateOrderStatus(OrderTotal orderTotal);
 
 }

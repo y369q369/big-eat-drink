@@ -1,4 +1,6 @@
 // pages/logs/index.js
+const app = getApp()
+
 Page({
     /**
      * 页面的初始数据
@@ -25,6 +27,13 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
+
+    },
+
+    /**
+     * 初始化数据
+     */
+    initData: function () {
         var that = this
         wx.request({
             // 注意，如果小程序开启校验合法域名时必须使用https协议
@@ -278,7 +287,24 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow() {
-
+        var st = new Date().getTime()
+        var intervalId = setInterval(() => {
+            var et = new Date().getTime()
+            if (app.globalData.user.openid) {
+                clearInterval(intervalId)
+                if (app.globalData.user.nickName) {
+                    this.initData()
+                } else {
+                    console.log("switchTab login")
+                    wx.switchTab({
+                        url: '/pages/login/index',
+                    })
+                }
+            } else if (et - st > 10000) {
+                clearInterval(intervalId)
+                this.initData()
+            }
+        }, 100)
     },
 
     /**

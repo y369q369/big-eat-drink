@@ -40,3 +40,11 @@
     float: left; 
     padding-top: 10px;
 }
+
+.order_finish_button {
+    width: 40%; 
+    margin: 0 5%; 
+    height: 45px;
+    padding-top: 10px;
+    padding-left: 50%;
+}

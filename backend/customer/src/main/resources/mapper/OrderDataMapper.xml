@@ -6,6 +6,7 @@
     <select id="getOrderInfo" resultType="com.demo.dto.OrderDto">
         SELECT
             t.id AS orderId,
+            t.status,
             d.detail_id AS detailId,
             d.number,
             d.menu_id AS menuId,

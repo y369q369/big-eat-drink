@@ -19,11 +19,18 @@
         <view style="text-align: right; padding-right: 20px; font-size: 14px;">
             总价： {{totalPrice}} 元
         </view>
-        <view class="order_button">
-            <button bindtap="back" style="font-size: 14px; ">加菜</button>
+        <view wx:if="{{orderStatus === 1}}">
+            <view class="order_button">
+                <button bindtap="back" style="font-size: 14px; ">加菜</button>
+            </view>
+            <view class="order_button">
+                <button bindtap="updateOrder" style="font-size: 14px;">结帐</button>
+            </view>
         </view>
-        <view class="order_button">
-            <button bindtap="saveOrder" style="font-size: 14px;">结帐</button>
+        <view wx:if="{{orderStatus > 1}}">
+            <view class="order_finish_button">
+                <button style="font-size: 14px; ">已结账</button>
+            </view>
         </view>
     </view>
 </view>

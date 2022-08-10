@@ -37,6 +37,11 @@ public class OrderTotal implements Serializable {
     private String detailId;
 
     /**
+     * 订单状态 1: 创建  2：待付款  3：已付款  4：已退款  5：完成
+     */
+    private Integer status;
+
+    /**
      * 创建事件
      */
     @TableField(exist = false)

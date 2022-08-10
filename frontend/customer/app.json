@@ -1,7 +1,7 @@
 {
     "pages": [
         "pages/index/index",
-        "pages/test/index",
+        "pages/login/index",
         "pages/order/index"
     ],
     "window": {
@@ -13,8 +13,8 @@
                 "pagePath": "pages/index/index",
                 "text": "首页"
             },{
-                "pagePath": "pages/test/index",
-                "text": "测试"
+                "pagePath": "pages/login/index",
+                "text": "登录"
             }
         ]
     },

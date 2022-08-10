@@ -7,7 +7,8 @@ Page({
     data: {
         orderId: '',
         orderList: [],
-        totalPrice: 0
+        totalPrice: 0,
+        orderStatus: 1
     },
 
     /**
@@ -36,7 +37,8 @@ Page({
             success: (res) => {
                 that.setData({
                     orderList: res.data.data.orderList,
-                    totalPrice: res.data.data.totalPrice
+                    totalPrice: res.data.data.totalPrice,
+                    orderStatus: res.data.data.status,
                 })
             },
             fail: function (res) {
@@ -52,6 +54,36 @@ Page({
 
     back: function() {
         wx.navigateBack({})
+    },
+
+    /**
+     * 结账
+     */
+    updateOrder: function() {
+        if (this.data.orderStatus == 1) {
+            var that = this
+            wx.request({
+                url: 'http://localhost:8281/customer/order/order',
+                method: 'PUT',
+                data: {
+                    id: that.data.orderId,
+                    status: 2
+                },
+                success: (res) => {
+                    that.setData({
+                        orderStatus: 2,
+                    })
+                },
+                fail: function (res) {
+                    console.error(res)
+                    wx.showToast({
+                        icon: "none",
+                        mask: true,
+                        title: "接口调用失败，请稍后再试。",
+                    });
+                }
+            })
+        }
     },
 
 

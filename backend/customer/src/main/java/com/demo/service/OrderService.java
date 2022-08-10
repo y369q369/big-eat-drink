@@ -46,6 +46,25 @@ public class OrderService {
     private OrderDataMapper orderDataMapper;
 
     /**
+     * 查询订单
+     * @param orderId 订单总id
+     */
+    public ResponseResult getOrderInfo(String orderId) {
+        List<OrderDto> orderDtoList = orderDataMapper.getOrderInfo(orderId);
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        for (OrderDto orderDto : orderDtoList) {
+            totalPrice = totalPrice.add(orderDto.getPrice().multiply(BigDecimal.valueOf(orderDto.getNumber())));
+        }
+        int status = orderDtoList.size() > 0 ? orderDtoList.get(0).getStatus() : 0;
+
+        JSONObject data = new JSONObject();
+        data.put("orderList", orderDtoList);
+        data.put("totalPrice", totalPrice);
+        data.put("status", status);
+        return ResponseResult.success(data);
+    }
+
+    /**
      * 新增订单
      */
     public ResponseResult saveOrder(SaveOrderRequest saveOrderRequest) {
@@ -86,6 +105,8 @@ public class OrderService {
             int insertNum = orderMapper.insert(orderTotal);
             log.info("【新增订单】 插入订单总表 {} 条， 订单分表 {} 条", insertNum, batchInsertNum);
 
+            // TODO 打印订单给后厨
+
             JSONObject data = new JSONObject();
             data.put("id", orderId);
             data.put("msg", "新增成功");
@@ -96,19 +117,11 @@ public class OrderService {
     }
 
     /**
-     * 查询订单
-     * @param orderId 订单总id
+     * 更新订单状态
      */
-    public ResponseResult getOrderInfo(String orderId) {
-        List<OrderDto> orderDtoList = orderDataMapper.getOrderInfo(orderId);
-        BigDecimal totalPrice = BigDecimal.ZERO;
-        for (OrderDto orderDto : orderDtoList) {
-            totalPrice = totalPrice.add(orderDto.getPrice().multiply(BigDecimal.valueOf(orderDto.getNumber())));
-        }
-        JSONObject data = new JSONObject();
-        data.put("orderList", orderDtoList);
-        data.put("totalPrice", totalPrice);
-        return ResponseResult.success(data);
+    public ResponseResult updateOrderStatus(OrderTotal orderTotal) {
+        int updateNum = orderMapper.updateOrderStatus(orderTotal);
+        return ResponseResult.success(updateNum);
     }
 
 }
