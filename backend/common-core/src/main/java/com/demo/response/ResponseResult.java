@@ -1,7 +1,7 @@
 package com.demo.response;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @Author gs
@@ -9,7 +9,7 @@ import lombok.Data;
  * @Description 公共响应体
  */
 @Data
-@AllArgsConstructor
+@NoArgsConstructor
 public class ResponseResult {
 
     /**
@@ -39,5 +39,16 @@ public class ResponseResult {
 
     public static ResponseResult fail(Object data) {
         return new ResponseResult(ResponseCode.FAIL, data);
+    }
+
+    /**
+     * 判断是否成功
+     * @return true: 成功  false: 失败
+     */
+    public boolean status() {
+        if (code == 200) {
+            return true;
+        }
+        return false;
     }
 }

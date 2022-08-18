@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.mapper.UserMapper">
+
+    <!-- 更新用户尝试次数 -->
+    <update id="updateTimes">
+        update user set try_times = #{tryTimes}, last_login = now() where id = #{id}
+    </update>
+
+</mapper>

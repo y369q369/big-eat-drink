@@ -27,8 +27,11 @@ public enum ResponseCode {
     /**
      * 资源不存在的状态码
      */
-    RESOURCES_NOT_EXIST(10001, "资源不存在");
-
+    RESOURCES_NOT_EXIST(10001, "资源不存在"),
+    /**
+     * token异常
+     */
+    TOKEN_ERROR(10002, "token异常");
 
     /**
      * 状态码

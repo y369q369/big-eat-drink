@@ -1,6 +1,7 @@
 package com.demo.response;
 
 import com.demo.exception.BaseException;
+import com.demo.util.IpUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -25,7 +26,7 @@ public class ExceptionHandlerAdvice {
     @ExceptionHandler(Exception.class)
     public ResponseResult handleException(Exception e){
         log.error(e.getMessage(), e);
-        return new ResponseResult(ResponseCode.SERVICE_ERROR.getCode(), ResponseCode.SERVICE_ERROR.getMsg(), e.getMessage());
+        return new ResponseResult(ResponseCode.SERVICE_ERROR, e.getMessage());
     }
 
     /**
@@ -37,7 +38,7 @@ public class ExceptionHandlerAdvice {
     @ExceptionHandler(RuntimeException.class)
     public ResponseResult handleRuntimeException(RuntimeException e){
         log.error(e.getMessage(), e);
-        return new ResponseResult(ResponseCode.SERVICE_ERROR.getCode(), ResponseCode.SERVICE_ERROR.getMsg(), e.getMessage());
+        return new ResponseResult(ResponseCode.SERVICE_ERROR, e.getMessage());
     }
 
     /**
@@ -48,9 +49,9 @@ public class ExceptionHandlerAdvice {
      */
     @ExceptionHandler(BaseException.class)
     public ResponseResult handleBaseException(BaseException e){
-        log.error(e.getMessage(),e);
-        ResponseCode code = e.getCode();
-        return new ResponseResult(code.getCode(), code.getMsg(),null);
+        log.error("{}访问 : {}", IpUtil.getRequestIp(), e.getMessage(), e);
+        ResponseResult responseResult = new ResponseResult(e.getCode(), e.getMessage());
+        return responseResult;
     }
 
 }

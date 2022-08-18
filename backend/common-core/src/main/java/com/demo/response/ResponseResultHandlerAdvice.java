@@ -41,7 +41,7 @@ public class ResponseResultHandlerAdvice implements ResponseBodyAdvice<Object> {
                 return body;
             }else{
                 // 只有正常返回的结果才会进入这个判断流程，返回正常成功的状态码+信息+数据。
-                return new ResponseResult(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getMsg(), body);
+                return new ResponseResult(ResponseCode.SUCCESS, body);
             }
         }
         // 非JSON格式body直接返回
