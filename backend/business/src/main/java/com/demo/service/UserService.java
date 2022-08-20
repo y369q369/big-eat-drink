@@ -76,4 +76,12 @@ public class UserService {
         return ResponseResult.fail("新增失败");
     }
 
+    /**
+     * 注销用户
+     * @param userName 用户
+     */
+    public ResponseResult logout(String userName) {
+        tokenService.deleteToken(userName);
+        return ResponseResult.success("注销成功");
+    }
 }

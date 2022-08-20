@@ -128,22 +128,4 @@ public class TokenService {
         tokenMap.remove(name);
     }
 
-
-//    /**
-//     * token延期
-//     * @param key
-//     * @param token
-//     */
-//    public void delayToken(String key, String token) {
-//        DecodedJWT decodedJWT = JWTUtil.verifyToken(token);
-//        List<String> tokenList = tokenMap.get(key);
-//        if (new Date().getTime() - decodedJWT.getExpiresAt().getTime() > 100) {
-//            int index = tokenList.indexOf(token);
-//            tokenList.remove(index);
-//        } else {
-//
-//        }
-//    }
-
-
 }

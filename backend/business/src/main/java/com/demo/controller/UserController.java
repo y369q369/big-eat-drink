@@ -6,6 +6,8 @@ import com.demo.response.ResponseResult;
 import com.demo.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,11 +40,10 @@ public class UserController {
         return userService.save(user);
     }
 
-    @ApiOperation(value = "ts")
-    @PostMapping("test")
-    public ResponseResult test() {
-        return ResponseResult.success("124");
+    @ApiOperation(value = "注销")
+    @DeleteMapping("logout")
+    public ResponseResult logout(@Param("userName") String userName) {
+        return userService.logout(userName);
     }
-
 
 }
