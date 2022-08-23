@@ -24,7 +24,8 @@ const routes = useRouter().options.routes
 const store = localStore()
 
 watch( () => store.sidebarShowFlag, (flag) => {
-    isCollapse.value = flag
+    console.log(flag)
+    isCollapse.value = !flag
 })
 
 </script>
