@@ -5,12 +5,11 @@ import com.demo.response.BaseResponse;
 import com.demo.response.ResponseResult;
 import com.demo.service.UserService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -42,8 +41,17 @@ public class UserController {
 
     @ApiOperation(value = "注销")
     @DeleteMapping("logout")
-    public ResponseResult logout(@Param("userName") String userName) {
+    public ResponseResult logout(@RequestParam("userName") String userName) {
         return userService.logout(userName);
+    }
+
+    @ApiOperation(value = "获取用户信息")
+    @GetMapping("userInfo")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userName", value = "用户名称", example = "admin", dataType = "String", paramType = "query", required = true)
+    })
+    public ResponseResult getUserInfo(@RequestParam("userName") String userName) {
+        return userService.getUserInfo(userName);
     }
 
 }

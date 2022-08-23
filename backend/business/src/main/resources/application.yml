@@ -14,3 +14,9 @@ spring:
     pathmatch:
       # Springfox使用的路径匹配是基于AntPathMatcher的，而Spring Boot 2.6.X + 使用的是PathPatternMatcher
       matching-strategy: ant_path_matcher
+
+logging:
+  level:
+    com:
+      demo:
+        mapper: debug

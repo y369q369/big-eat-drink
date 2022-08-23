@@ -47,7 +47,7 @@ public class User {
     /**
      * 最近一次登录时间
      */
-    @TableField(exist = false)
+//    @TableField(exist = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String lastLogin;
 

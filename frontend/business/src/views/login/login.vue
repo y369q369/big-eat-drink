@@ -19,7 +19,9 @@
                     </el-input>
                 </el-form-item>
                 <div class="login-btn">
-                    <el-col style="color: var(--el-color-danger); text-align: left; padding-bottom: 10px">{{loginInfo}}</el-col>
+                    <el-col style="color: var(--el-color-danger); text-align: left; padding-bottom: 10px">
+                        {{ loginInfo }}
+                    </el-col>
                     <el-button type="primary" @click="submitForm()">登录</el-button>
                 </div>
             </el-form>
@@ -29,9 +31,12 @@
 
 <script setup lang="ts">
 import {ref, reactive} from "vue";
-
+import {useRouter} from 'vue-router'
 import axios from "@/plugins/axios";
+import {localStore} from '@/stores/local'
 
+
+const router = useRouter()
 const param = reactive({
     name: "admin",
     password: "",
@@ -58,13 +63,20 @@ const submitForm = () => {
         if (valid) {
             axios.post('/api/user/login', param)
                 .then(function (response) {
-                    console.log(response);
                     if (response.code === 200) {
-                        console.log("登录成功")
+                        axios.get('/api/user/userInfo', {
+                            params: {
+                                userName: param.name
+                            }
+                        }).then(function (response) {
+                            const local = localStore()
+                            local.storeUser(response.data)
+                            router.push('/layout')
+                        })
                     } else {
                         loginInfo.value = response.data.msg
                     }
-                });
+                })
         } else {
             loginInfo.value = ''
         }

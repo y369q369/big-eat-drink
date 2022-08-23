@@ -84,4 +84,21 @@ public class UserService {
         tokenService.deleteToken(userName);
         return ResponseResult.success("注销成功");
     }
+
+    /**
+     * 获取用户信息
+     * @param userName 用户名
+     */
+    public ResponseResult getUserInfo(String userName) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("name", userName);
+        User userData = userMapper.selectOne(queryWrapper);
+        if (userData == null) {
+            return ResponseResult.fail("用户不存在");
+        } else {
+            userData.setId(null);
+            userData.setPassword(null);
+            return ResponseResult.success(userData);
+        }
+    }
 }
