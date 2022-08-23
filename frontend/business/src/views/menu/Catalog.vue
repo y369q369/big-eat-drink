@@ -1,11 +1,9 @@
 <template>
-$END$
+
 </template>
 
-<script>
-export default {
-name: "Catalog"
-}
+<script setup lang="ts">
+
 </script>
 
 <style scoped>

@@ -1,11 +1,9 @@
 <template>
-$END$
+ order
 </template>
 
-<script>
-export default {
-name: "Order"
-}
+<script setup lang="ts">
+
 </script>
 
 <style scoped>

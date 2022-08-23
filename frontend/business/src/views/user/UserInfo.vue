@@ -1,11 +1,9 @@
 <template>
-$END$
+    用户信息
 </template>
 
-<script>
-export default {
-name: "UserInfo"
-}
+<script setup lang="ts">
+
 </script>
 
 <style scoped>
